@@ -6,7 +6,7 @@ module.exports = (bot, member) => {
     `**${member.user.tag}** a quitté(e) le serveur.\nMinute ! C'était qui en fait !? :thinking:`,
     `1,2,... 8, 14,... C'est bien ce qu'il me semblait !\n**${member.user.tag}** a quitté(e) le serveur ! :sob:`,
     `**${member.user.tag}** est parti(e) ! Hourra !\nEnfin des vacances !!!`,
-    `**${member.user.tag}** est passé(e) où ? Ah bah à pu ! :upside_down:`
+    `**${member.user.tag}** est passé(e) où ? Ah bah à pu ! :upside_down:`,
     ];
     let gb = msg[Math.floor(Math.random() * msg.length)];
     let embed = new Discord.MessageEmbed()
