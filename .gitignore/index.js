@@ -48,7 +48,7 @@ for (const file of commandFiles) {
 bot.login(process.env.discordToken);
 
 setInterval(function() {
-	let game = ["TE surveiller ;)","!help","Fortnite", "Apex Legends", "s'admirer", "à rigoler de mes blagues", "point faible ? Trop fort !"]
+	let game = ["TE surveiller ;)", "!help", "Fortnite", "Apex Legends", "s'admirer", "rigoler à mes blagues", "point faible ? Trop fort !"]
 	let status = game[Math.floor(Math.random() * game.length)];
 	bot.user.setActivity(status , {type : "PLAYING"});
 }, 5000)
