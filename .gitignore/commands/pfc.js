@@ -38,7 +38,7 @@ module.exports = {
             embed.addField("Tu as gagné", randomDef)
         }
         else {
-            return message.reply("essaie pas de tricher !\nJe sais jouer à pfc, c'est sois Pierre, soit Feuille ou soit Ciseaux et rien d'autre ! <a:shakeeyes:729436288599720028>")
+            return message.reply("essaie pas de tricher !\nJe sais jouer à pfc, c'est soit Pierre, soit Feuille ou soit Ciseaux et rien d'autre ! <a:shakeeyes:729436288599720028>")
         }
         message.channel.send(embed)
     }
