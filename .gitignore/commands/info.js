@@ -12,7 +12,7 @@ module.exports = {
             .addField("Versions Logiciel/Librairies", `NodeJS : \`\`${process.version}\`\`\nDiscord.js : \`\`${Discord.version}\`\`\nfs : \`\`0.0.1\`\`\npath : \`\`0.12.7\`\``, true)
             .addField("Utilisation Ressources", "OS : "+process.platform+"\nUtilisation RAM : ``"+`${(process.memoryUsage().heapUsed/1000000).toFixed(2)}`+" Mo``", true)
             .addField("Ping", `Bot : ${Date.now() - message.createdTimestamp}`+" ms", true)
-            .setColor("#FFFFF")
+            .setColor("#bf9322")
             .setTimestamp()
             .setFooter(`Commande faite par ${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
             message.channel.send({embed});
@@ -32,7 +32,7 @@ module.exports = {
             .addField("Salons",info.channels.cache.size, true)
             .addField("Date de création", event.getDate()+"/"+month+"/"+event.getFullYear())
             .setTimestamp()
-            .setColor("#FFFFF")
+            .setColor("#bf9322")
             .setFooter(`Commande faite par ${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
             message.channel.send({embed});
         } else {
@@ -55,7 +55,7 @@ module.exports = {
                 .addField("Création du compte :", event.getDate()+"/"+monthCrea+"/"+event.getFullYear())
                 .addField("A rejoint le :", join.getDate()+"/"+month+"/"+join.getFullYear())
                 .setTimestamp()
-                .setColor("#FFFFF")
+                .setColor("#bf9322")
                 message.channel.send({embed}); 
             } else {
                 let info = bot.users.cache.get(member.user.id)
@@ -74,7 +74,7 @@ module.exports = {
                 .addField("Création du compte :", event.getDate()+"/"+monthCrea+"/"+event.getFullYear())
                 .addField("A rejoint le :", join.getDate()+"/"+month+"/"+join.getFullYear())
                 .setTimestamp()
-                .setColor("#FFFFF")
+                .setColor("#bf9322")
                 .setFooter(`Commande faite par ${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
                 message.channel.send({embed});
             }
