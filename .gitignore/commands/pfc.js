@@ -11,7 +11,7 @@ module.exports = {
         .addField("Toi", args[0].toUpperCase(), true)
         .addField("Moi", random.toUpperCase(), true)
         .setTimestamp()
-        .setColor("#FFFFF")
+        .setColor("#bf9322")
 
         let resE = ["Ouais égalité, t'as de la chance, c'est tout, rien de plus...","**Arrêtes de me copier !!!** :face_with_symbols_over_mouth:","Mouais... Je t'ai à l'oeil ! :eyes:"]
         let randomEqu = resE[Math.floor(Math.random() * resE.length)];
