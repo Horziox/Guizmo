@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const { generateNews } = require("../utils")
+const { generateNews } = require("../utils.js")
 
 module.exports = {
     name: "news",
