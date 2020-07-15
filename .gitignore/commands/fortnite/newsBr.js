@@ -7,10 +7,6 @@ module.exports = {
     name: "news",
     async execute(message, args, bot, prefix) {
         message.channel.startTyping()
-        let embed = new Discord.MessageEmbed()
-        .setTitle("Actualités Fortnite Battle Royale")
-        .setTimestamp()
-        .setColor('#bf9322')
         await generateNews().then((resolve) => {
             let embed = new Discord.MessageEmbed()
             .setTitle("Actualités Fortnite Battle Royale")
