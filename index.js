@@ -64,4 +64,4 @@ schedule.scheduleJob('00 * * * * *', async function(){
     })
 });
 
-bot.login("NTQ4NDE5MjgyNzAzMjIwNzQ3.XL2JxQ.e10JWinUU387u-ASJv6ptNFjhMU");
+bot.login(process.env.discordToken);
