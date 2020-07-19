@@ -1,0 +1,20 @@
+{
+  "name": "guizmo-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Horziox",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "discord.js": "^12.2.0",
+    "fs": "0.0.1-security",
+    "gifencoder": "^2.0.1",
+    "node-schedule": "^1.3.2",
+    "path": "^0.12.7",
+    "request": "^2.88.2"
+  }
+}
