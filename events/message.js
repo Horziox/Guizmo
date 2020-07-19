@@ -1,5 +1,5 @@
 module.exports = (bot, message) => {
-    var prefix = "?"
+    var prefix = "!"
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
