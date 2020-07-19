@@ -19,7 +19,7 @@ module.exports = {
             embed.attachFiles(['./final/brNews.gif'])
         }
         embed.setImage('attachment://brNews.gif')
-        .setFooter(`${bot.user.username} bêta`, bot.user.displayAvatarURL())
+        .setFooter(`${bot.user.username}`, bot.user.displayAvatarURL())
         message.channel.send(embed)
         message.channel.stopTyping()
     }

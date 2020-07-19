@@ -5,6 +5,15 @@ const Canvas = require("canvas");
 module.exports = {
     name: "stats",
     execute(message, args, bot, prefix) {
+        if(!args[0]) {
+            let embed = new Discord.MessageEmbed()
+            .setTitle("Commandes Stats Fortnite")
+            .setDescription(`${prefix}stats pseudo\n*Affiche vos stats sur toutes les plateformes*\nEx: !stats Horziox\n\n${prefix}stats plateforme pseudo\n*Affiche vos stats uniquement sur la plateforme renseignée (plateforme = pc ou console ou mobile)*\nEx: ${prefix}stats pc Horziox`)
+            .setColor("#bf9322")
+            .setFooter(`${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
+            .setTimestamp()
+            return message.channel.send(embed)
+        }
         let plat = args[0]
         let name;
         if (plat.toLowerCase() == "pc") {
