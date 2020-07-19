@@ -154,7 +154,7 @@ module.exports = {
                 ctx.fillText(`${stats.ltm.winRate.toFixed(2)}%\n\n${stats.ltm.killsPerMatch.toFixed(2)}`, 1080, 760, 175)
 
                 const img = new Discord.MessageAttachment(canvas.toBuffer(), 'stats.png')
-                message.channel.send(img)
+                return message.channel.send(img)
 
 
             } else {
