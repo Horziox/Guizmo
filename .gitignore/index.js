@@ -1,8 +1,10 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const utils = require("./utils.js");
-
+const schedule = require('node-schedule');
 const bot = new Discord.Client();
+
+const FortniteData = require('./final/dataFortnite.json');
 
 bot.commands = new Discord.Collection();
 
@@ -52,3 +54,19 @@ setInterval(function() {
 	let status = game[Math.floor(Math.random() * game.length)];
 	bot.user.setActivity(status , {type : "PLAYING"});
 }, 5000)
+
+schedule.scheduleJob('00 * * * * *', async function(){
+    await utils.generateNews().then((resolve) => {
+        let channel = bot.channels.cache.get('551673005689012229')
+        if(FortniteData.news != channel.topic) {
+            let embed = new Discord.MessageEmbed()
+            .setTitle("Actualités Fortnite Battle Royale")
+            .attachFiles([resolve])
+            .setImage('attachment://brNews.gif')
+            .setColor('#bf9322')
+            .setTimestamp()
+            channel.send(embed)
+            channel.setTopic(FortniteData.news)
+        }
+    })
+});
