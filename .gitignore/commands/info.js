@@ -8,7 +8,7 @@ module.exports = {
             let embed = new Discord.MessageEmbed()
             .setAuthor(bot.user.username+" Informations")
             .setThumbnail(bot.user.displayAvatarURL())
-            .setDescription("Salut !\nJe suis "+bot.user.username+", un bot multi-fonctions développé pour vous rendre service !")
+            .setDescription(`Salut !\nJe suis ${bot.user.username}, un bot multi-fonctions développé pour vous rendre service !\nRetrouvez mon code source [ici](https://github.com/Horziox/Guizmo) !`)
             .addField("Versions Logiciel/Librairies", `NodeJS : \`\`${process.version}\`\`\nDiscord.js : \`\`${Discord.version}\`\`\nfs : \`\`0.0.1\`\`\npath : \`\`0.12.7\`\``, true)
             .addField("Utilisation Ressources", "OS : "+process.platform+"\nUtilisation RAM : ``"+`${(process.memoryUsage().heapUsed/1000000).toFixed(2)}`+" Mo``", true)
             .addField("Ping", `Bot : ${Date.now() - message.createdTimestamp}`+" ms", true)
