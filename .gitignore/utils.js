@@ -73,9 +73,14 @@ module.exports = {
                         else if(body.data.motds.length == 2) Tlength = 633
                         else if(body.data.motds.length == 3) Tlength = 422
                         while(i != body.data.motds.length) {
-                            if(e == i) ctx.globalAlpha = 0.25
-                            else ctx.globalAlpha = 0.6
-                            ctx.fillStyle = 'blue'
+                            if(e == i) {
+                                ctx.globalAlpha = 0.3
+                                ctx.fillStyle = 'white'
+                            }
+                            else {
+                                ctx.globalAlpha = 0.6
+                                ctx.fillStyle = 'blue' 
+                            }
                             ctx.fillRect(right, 1, Tlength, 50);
                             ctx.globalAlpha = 1
                             ctx.font ="25px Burbank Big Cd Bk";
