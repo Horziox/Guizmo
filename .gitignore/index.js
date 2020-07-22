@@ -55,7 +55,7 @@ setInterval(function() {
 	bot.user.setActivity(status , {type : "PLAYING"});
 }, 5000)
 
-schedule.scheduleJob('00 * * * * *', async function(){
+schedule.scheduleJob('05 * * * * *', async function(){
     await utils.generateNews().then((resolve) => {
         let channel = bot.channels.cache.get('551673005689012229')
         if(FortniteData.news != channel.topic) {
