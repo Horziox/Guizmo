@@ -88,6 +88,7 @@ module.exports = {
                             let title = body.data.motds[i].tabTitle
                             if(body.data.motds[i].tabTitle == null) title = body.data.motds[i].title
                             ctx.fillText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35)
+                            ctx.strokeText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35)
                             right = right + Tlength + 2
                             i++
                         }
