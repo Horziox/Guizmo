@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const utils = require("./utils.js");
 const schedule = require('node-schedule');
+const request = require("request");
 const bot = new Discord.Client();
 
 const FortniteData = require('./final/dataFortnite.json');
@@ -55,8 +56,8 @@ setInterval(function() {
 	bot.user.setActivity(status , {type : "PLAYING"});
 }, 5000)
 
-schedule.scheduleJob('05 * * * * *', async function(){
-    await utils.generateNews().then((resolve) => {
+schedule.scheduleJob('*/10 * * * * *', async function(){
+    await utils.generateNews(bot).then((resolve) => {
         let channel = bot.channels.cache.get('551673005689012229')
         if(FortniteData.news != channel.topic) {
             let embed = new Discord.MessageEmbed()
@@ -65,7 +66,15 @@ schedule.scheduleJob('05 * * * * *', async function(){
             .setImage('attachment://brNews.gif')
             .setColor('#bf9322')
             .setTimestamp()
-            channel.send(embed)
+            channel.send(embed).then(message => {
+                request({
+                    method: 'POST',
+                    url: `https://discord.com/api/v6/channels/${channel.id}/messages/${message.id}/crosspost`,
+                    headers: {
+                        "Authorization" : `Bot ${process.env.discordToken}`
+                    }
+                })
+            })
             channel.setTopic(FortniteData.news)
         }
     })

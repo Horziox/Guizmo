@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const fs = require("fs");
 const path = require("path");
 const request = require("request");
@@ -20,24 +21,27 @@ module.exports = {
         }
     },
 
-    cycleDir(client, dir) {
+    cycleDir(bot, dir) {
         fs.readdirSync(dir).forEach(file => {
             let fullPath = path.join(dir, file);
             if (fs.lstatSync(fullPath).isDirectory()) {
-                this.cycleDir(client, fullPath);
+                this.cycleDir(bot, fullPath);
             } else {
-                this.importFile(client, fullPath);
+                this.importFile(bot, fullPath);
             }
         });
     },
 
-    async generateNews() {
+    async generateNews(bot) {
         return new Promise((resolve) => {
             request({
-                url: "https://fortnite-api.com/v2/news/br?language=fr",
+                url: "https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game",
+                headers : {
+                    "Accept-Language" : "fr-FR"
+                },
                 json: true,
             }, async function(error, response, body) {
-                if(body.data.hash != FortniteData.news) {
+                if(body.battleroyalenews["jcr:baseVersion"] != FortniteData.news) {
                     const encoder = new GIFEncoder(1280, 720);
                     await encoder.createReadStream().pipe(fs.createWriteStream(`./final/brNews.gif`));
                     encoder.start();
@@ -47,16 +51,16 @@ module.exports = {
                     const canvas = Canvas.createCanvas(1280, 720);
                     const ctx = canvas.getContext('2d');
                     let e = 0;
-                    while(e != body.data.motds.length) {
-                        const background = await Canvas.loadImage(body.data.motds[e].image);
+                    while(e != body.battleroyalenews.news.motds.length) {
+                        const background = await Canvas.loadImage(body.battleroyalenews.news.motds[e].image);
                         ctx.globalAlpha = 1
                         ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
                         ctx.font ="60px Burbank Big Cd Bk";
                         ctx.fillStyle = '#ffffff';
-                        ctx.fillText(body.data.motds[e].title.toUpperCase(), 30, 550);
+                        ctx.fillText(body.battleroyalenews.news.motds[e].title.toUpperCase(), 30, 550);
                         ctx.font ="30px Burbank Big Cd Bk";
                         ctx.fillStyle = '#33edfe';
-                        var text = body.data.motds[e].body;
+                        var text = body.battleroyalenews.news.motds[e].body;
                         var textSplit = text.split(" ");
                         var finalText = textSplit[0]
                         let t = 1;
@@ -69,10 +73,10 @@ module.exports = {
                         let i = 0;
                         let right = 5
                         let Tlength;
-                        if(body.data.motds.length == 1) Tlength = 1270
-                        else if(body.data.motds.length == 2) Tlength = 633
-                        else if(body.data.motds.length == 3) Tlength = 422
-                        while(i != body.data.motds.length) {
+                        if(body.battleroyalenews.news.motds.length == 1) Tlength = 1270
+                        else if(body.battleroyalenews.news.motds.length == 2) Tlength = 633
+                        else if(body.battleroyalenews.news.motds.length == 3) Tlength = 422
+                        while(i != body.battleroyalenews.news.motds.length) {
                             if(e == i) {
                                 ctx.globalAlpha = 0.3
                                 ctx.fillStyle = 'white'
@@ -85,8 +89,8 @@ module.exports = {
                             ctx.globalAlpha = 1
                             ctx.font ="25px Burbank Big Cd Bk";
                             ctx.fillStyle = '#ffffff';
-                            let title = body.data.motds[i].tabTitle
-                            if(body.data.motds[i].tabTitle == null) title = body.data.motds[i].title
+                            let title = body.battleroyalenews.news.motds[i].tabTitle
+                            if(body.battleroyalenews.news.motds[i].tabTitle == null) title = body.battleroyalenews.news.motds[i].title
                             ctx.fillText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35)
                             ctx.strokeText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35)
                             right = right + Tlength + 2
@@ -95,14 +99,33 @@ module.exports = {
                         encoder.addFrame(ctx);
                         e++;
                     }
-                    FortniteData.news = body.data.hash
+                    FortniteData.news = body.battleroyalenews["jcr:baseVersion"]
                     fs.writeFile('./final/dataFortnite.json', JSON.stringify(FortniteData), function writeJSON(err) {
                         if (err) return console.log(err);
                     })
                     encoder.finish();        
-                    resolve(`./final/brNews.gif`)
                 }
-                resolve(`./final/brNews.gif`)
+                if(body.emergencynotice["jcr:baseVersion"] != FortniteData.emergencyNotice) {
+                    let embed = new Discord.MessageEmbed()
+                    .setAuthor(body.emergencynotice.news.messages[body.emergencynotice.news.messages.length - 1].title, "https://cdn.discordapp.com/attachments/715327691842256906/739843403642306621/giphy.gif")
+                    .setDescription(body.emergencynotice.news.messages[body.emergencynotice.news.messages.length - 1].body)
+                    .setColor("#c4281a")
+                    .setTimestamp()
+                    bot.channels.cache.get("551673005689012229").send(embed).then(message => {
+                        request({
+                            method: 'POST',
+                            url: `https://discord.com/api/v6/channels/551673005689012229/messages/${message.id}/crosspost`,
+                            headers: {
+                                "Authorization" : `Bot ${process.env.discordToken}`
+                            }
+                        })
+                    })
+                    FortniteData.emergencyNotice = body.emergencynotice["jcr:baseVersion"]
+                    fs.writeFile('./final/dataFortnite.json', JSON.stringify(FortniteData), function writeJSON(err) {
+                        if (err) return console.log(err);
+                    })
+                }
+                return resolve(`./final/brNews.gif`)
             })
         })
     }
