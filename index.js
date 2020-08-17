@@ -2,12 +2,11 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const utils = require("./utils.js");
 const schedule = require('node-schedule');
-const request = require("request");
 const bot = new Discord.Client();
 
 require("dotenv").config()
 
-const FortniteData = require('./final/dataFortnite.json');
+const data = require('./functions/dataFortnite.js');
 
 bot.commands = new Discord.Collection();
 
@@ -57,25 +56,5 @@ setInterval(function() {
 }, 5000)
 
 schedule.scheduleJob('*/10 * * * * *', async function(){
-    await utils.generateNews(bot).then((resolve) => {
-        let channel = bot.channels.cache.get('551673005689012229')
-        if(FortniteData.news != channel.topic) {
-            let embed = new Discord.MessageEmbed()
-            .setTitle("Actualités Fortnite Battle Royale")
-            .attachFiles([resolve])
-            .setImage('attachment://brNews.gif')
-            .setColor('#bf9322')
-            .setTimestamp()
-            channel.send(embed).then(message => {
-                request({
-                    method: 'POST',
-                    url: `https://discord.com/api/v6/channels/${channel.id}/messages/${message.id}/crosspost`,
-                    headers: {
-                        "Authorization" : `Bot ${process.env.discordToken}`
-                    }
-                })
-            })
-            channel.setTopic(FortniteData.news)
-        }
-    })
+    await data.reloadData(bot)
 });
