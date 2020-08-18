@@ -67,9 +67,9 @@ module.exports = {
                     ctx.font ="25px Burbank Big Cd Bk";
                     ctx.fillStyle = '#ffffff';
                     let title = data[i].tabTitleOverride
-                    if(data[i].tabTitleOverride == "") title = data[i].title
-                    ctx.fillText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35, Tlength)
-                    ctx.strokeText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35, Tlength)
+                    if(data[i].tabTitleOverride == undefined) title = data[i].title
+                    ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                    ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
                     right = right + Tlength + 2
                     i++
                 }

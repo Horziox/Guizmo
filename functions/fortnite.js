@@ -58,8 +58,8 @@ module.exports = {
                     ctx.fillStyle = '#ffffff';
                     let title = data.news.motds[i].tabTitleOverride
                     if(data.news.motds[i].tabTitleOverride == undefined) title = data.news.motds[i].title
-                    ctx.fillText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35, Tlength)
-                    ctx.strokeText(title.toUpperCase(), (Tlength-ctx.measureText(title.toUpperCase()).width)/2 +right, 35, Tlength)
+                    ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                    ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
                     right = right + Tlength + 2
                     i++
                 }
