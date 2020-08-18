@@ -1,6 +1,6 @@
 {
   "name": "guizmo",
-  "version": "v1.1.5",
+  "version": "v1.2.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
