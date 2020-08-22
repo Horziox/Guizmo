@@ -7,10 +7,7 @@ const GIFEncoder = require('gifencoder');
 module.exports = {
     name: "news",
     async execute(message, args, bot, prefix) {
-        
-       generateNews()
-
-        async function generateNews() {
+        const generateNews = new Promise(async (resolve, reject) => {
             message.channel.startTyping()
             var request = await axios({
                 method: 'get',
@@ -68,28 +65,28 @@ module.exports = {
                     ctx.fillStyle = '#ffffff';
                     let title = data[i].tabTitleOverride
                     if(data[i].tabTitleOverride == undefined) title = data[i].title
-                    ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
-                    ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
-                    right = right + Tlength + 2
-                    i++
+                        ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                        ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                        right = right + Tlength + 2
+                        i++
+                    }
+                    encoder.addFrame(ctx);
+                    e++;
                 }
-                encoder.addFrame(ctx);
-                e++;
-            }
-            encoder.finish();
-            return await sendNews()
-        }
+                encoder.finish()
+                return resolve('./final/br-news.gif')
+            })
 
-        async function sendNews() {
+        generateNews.then(async (value) => {
             let embed = new Discord.MessageEmbed()
             .setTitle("Actualités Fortnite Battle Royale")
             .setColor('#bf9322')
-            .attachFiles("./final/br-news.gif")
+            .attachFiles(value)
             .setImage('attachment://br-news.gif')
             .setFooter(message.author.username, message.author.displayAvatarURL({dynamic: true}))
             .setTimestamp()
-            await message.channel.send(embed)
-            return await message.channel.stopTyping()
-        }
+            await message.channel.stopTyping()
+            return await message.channel.send(embed)
+        })
     }
 }
