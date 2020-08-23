@@ -3,7 +3,7 @@ const axios = require("axios");
 const Canvas = require("canvas");
 
 module.exports = {
-    name: "f-stats",
+    name: "stats",
     async execute(message, args, bot, prefix) {
         if(args.length == 0) {
             let embed = new Discord.MessageEmbed()
