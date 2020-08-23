@@ -65,17 +65,17 @@ module.exports = {
                     ctx.fillStyle = '#ffffff';
                     let title = data[i].tabTitleOverride
                     if(data[i].tabTitleOverride == undefined) title = data[i].title
-                        ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
-                        ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
-                        right = right + Tlength + 2
-                        i++
-                    }
-                    encoder.addFrame(ctx);
-                    e++;
+                    ctx.fillText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                    ctx.strokeText(title, (Tlength-ctx.measureText(title).width)/2 +right, 35, Tlength)
+                    right = right + Tlength + 2
+                    i++
                 }
-                encoder.finish()
-                return resolve('./final/br-news.gif')
-            })
+                encoder.addFrame(ctx);
+                e++
+            }
+            encoder.finish()
+            return resolve("./final/br-news.gif")
+        })
 
         generateNews.then(async (value) => {
             let embed = new Discord.MessageEmbed()
