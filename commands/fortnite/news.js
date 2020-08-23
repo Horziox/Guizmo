@@ -5,7 +5,7 @@ const Canvas = require("canvas");
 const GIFEncoder = require('gifencoder');
 
 module.exports = {
-    name: "news",
+    name: "f-news",
     async execute(message, args, bot, prefix) {
         const generateNews = new Promise(async (resolve, reject) => {
             message.channel.startTyping()
@@ -18,7 +18,7 @@ module.exports = {
             })
             var data = request.data.battleroyalenews.news.motds
             const encoder = new GIFEncoder(1280, 720);
-            await encoder.createReadStream().pipe(fs.createWriteStream(`./final/br-news.gif`));
+            await encoder.createReadStream().pipe(fs.createWriteStream(`./final/fortnite/br-news.gif`));
             encoder.start();
             encoder.setRepeat(0);
             encoder.setDelay(5000);
@@ -74,7 +74,7 @@ module.exports = {
                 e++
             }
             encoder.finish()
-            return resolve("./final/br-news.gif")
+            return resolve("./final/fortnite/br-news.gif")
         })
 
         generateNews.then(async (value) => {
