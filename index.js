@@ -58,3 +58,8 @@ setInterval(function() {
 schedule.scheduleJob('*/10 * * * * *', async function(){
     await data.reloadData(bot)
 });
+
+
+schedule.scheduleJob('1 0 2 * * *', async function(){
+    await data.reloadShop(bot)
+});
