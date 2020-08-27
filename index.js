@@ -60,6 +60,6 @@ schedule.scheduleJob('*/10 * * * * *', async function(){
 });
 
 
-schedule.scheduleJob('1 0 2 * * *', async function(){
+schedule.scheduleJob('1 0 0 * * *', async function(){
     await data.reloadShop(bot)
 });
