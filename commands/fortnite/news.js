@@ -16,6 +16,8 @@ module.exports = {
                 'Accept-Language': 'fr-FR', 
             }
         })
+        
+        if(request.data.battleroyalenews.news.motds.length == 0) return message.reply("il n'y a actuellement aucune actualité en jeu")
 
         generateGifNews(request.data.battleroyalenews).then(async (value) => {
             let embed = new Discord.MessageEmbed()
