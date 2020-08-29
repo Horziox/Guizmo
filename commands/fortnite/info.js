@@ -104,6 +104,16 @@ module.exports = {
             })
         })
 
+        if(args.length == 0) {
+            let embed = new Discord.MessageEmbed()
+            .setTitle("Commandes Info Fortnite")
+            .setDescription(`${prefix}cos Nom de la cosmétique\n\nEx: ${prefix}cos FLoss`)
+            .setColor("#bf9322")
+            .setFooter(`${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
+            .setTimestamp()
+            return message.channel.send(embed)
+        }
+
         infoCosmetics.then(async (value) => {
             let embed = new Discord.MessageEmbed()
             let canvasH = 600
