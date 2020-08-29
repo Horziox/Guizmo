@@ -48,22 +48,20 @@ module.exports = {
                 else cosmetic = await Canvas.loadImage(data[shopType].entries[e].items[0].images.icon)
 
                 ctx.drawImage(box, decalLeft, decalHeight, 200, 300)
-                ctx.drawImage(cosmetic, decalLeft-5, decalHeight+40, 220, 220)
+                ctx.drawImage(cosmetic, decalLeft-15, decalHeight+30, 230, 230)
 
-                ctx.globalAlpha = 0.20;
                 ctx.fillStyle = "black";
+                ctx.globalAlpha = 0.20;
                 ctx.fillRect(decalLeft, decalHeight+200, 200, 100);
                 ctx.globalAlpha = 1;
                 ctx.fillStyle = "#000724";
                 ctx.fillRect(decalLeft, decalHeight+260, 200, 40);
 
                 if(data[shopType].entries[e].items.length > 1) {
-                    var face = await Canvas.loadImage(`./assets/box/face_${data[shopType].entries[e].items[0].rarity.value}.png`)
                     let i = 1;
                     let boxHeight = 0;
                     while(i < data[shopType].entries[e].items.length) {
-                        ctx.drawImage(face, decalLeft+150, decalHeight+boxHeight, 50, 50)
-                            let cos = await Canvas.loadImage(data[shopType].entries[e].items[i].images.smallIcon)
+                        let cos = await Canvas.loadImage(data[shopType].entries[e].items[i].images.smallIcon)
                         ctx.drawImage(cos, decalLeft+150, decalHeight+boxHeight, 50, 50)
                         boxHeight = boxHeight + 50;
                         i++  
@@ -85,6 +83,7 @@ module.exports = {
                 }
                 let left = decalLeft + (100 - (measure / 2))
                 ctx.fillText(cosName, left, decalHeight+230);
+                ctx.strokeText(cosName, left, decalHeight+230);
                 //Type
                 ctx.font = "20px Burbank Big Cd Bk";
                 ctx.fillStyle = '#ffffff';
@@ -95,22 +94,23 @@ module.exports = {
                 measure = ctx.measureText(finalName).width;
                 left = decalLeft + (100 - (measure / 2));
                 ctx.fillText(finalName, left, decalHeight+250);
+                ctx.strokeText(finalName, left, decalHeight+250);
                 //Prix
                 const vbucks = await Canvas.loadImage('./assets/vbucks.png')
-                ctx.font = "30px Burbank Big Cd Bk";
+                ctx.font = "25px Burbank Big Cd Bk";
                 ctx.fillStyle = '#ffffff';
                 measure = ctx.measureText(data[shopType].entries[e].finalPrice).width
                 left = decalLeft + (100 - (measure / 2) - 17)
-                ctx.drawImage(vbucks, left + measure + 3, decalHeight+265, 30, 30);
-                ctx.fillText(data[shopType].entries[e].finalPrice, left, decalHeight+290)
+                ctx.drawImage(vbucks, left + measure + 3, decalHeight+267, 25, 25);
+                ctx.fillText(data[shopType].entries[e].finalPrice, left, decalHeight+288)
 
                 if(data[shopType].entries[e].banner !== null) {
                     const texture = await Canvas.loadImage('./assets/new.png')
-                    ctx.font = "20px Burbank Big Cd Bk";
+                    ctx.font = "15px Burbank Big Cd Bk";
                     ctx.fillStyle = '#ffffff';
-                    measure = ctx.measureText(data[shopType].entries[e].banner.value).width
-                    ctx.drawImage(texture, decalLeft-4, decalHeight-5, measure+50, 50)
-                    ctx.fillText(data[shopType].entries[e].banner.value, decalLeft+16, decalHeight+25)
+                    measure = ctx.measureText(data[shopType].entries[e].banner.value.toUpperCase()).width
+                    ctx.drawImage(texture, decalLeft-4, decalHeight-5, measure+50, 40)
+                    ctx.fillText(data[shopType].entries[e].banner.value.toUpperCase(), decalLeft+16, decalHeight+20)
                 }
 
 
