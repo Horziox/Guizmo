@@ -17,7 +17,7 @@ module.exports = {
             var channel = bot.channels.cache.get("551673005689012229")
             var topic = channel.topic.split(" ")
 
-            if(response.data.battleroyalenews["jcr:baseVersion"] !== topic[0] && data.news.motds.length !==0) {
+            if(response.data.battleroyalenews["jcr:baseVersion"] !== topic[0] && response.data.battleroyalenews.news.motds.length !==0) {
                 await news.generateGifNews(response.data.battleroyalenews).then(async (value) => {
                     let attachement = new Discord.MessageAttachment(value)
                     await channel.send(attachement).then(message => {
