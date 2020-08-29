@@ -8,7 +8,7 @@ module.exports = {
         if(args.length == 0) {
             let embed = new Discord.MessageEmbed()
             .setTitle("Commandes Stats Fortnite")
-            .setDescription(`${prefix}stats Votre pseudo Epic Games\n*Affiche vos stats sur toutes les plateformes*\nEx: ${prefix}stats Horziox`)
+            .setDescription(`${prefix}stats Votre pseudo Epic Games\n\nEx: ${prefix}stats Ninja`)
             .setColor("#bf9322")
             .setFooter(`${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
             .setTimestamp()
@@ -77,15 +77,15 @@ module.exports = {
                     const canvas = Canvas.createCanvas(1280, 920);
                     const ctx = canvas.getContext('2d');
                     let lineaire = ctx.createLinearGradient(620, 740, 640, 0);
-                    lineaire.addColorStop(0,'#000000')
-                    lineaire.addColorStop(0.4,'#141414')
-                    lineaire.addColorStop(0.9,'#c9c9c9')
+                    lineaire.addColorStop(0,'#4c15d6')
+                    lineaire.addColorStop(0.4,'#3a2fd4')
+                    lineaire.addColorStop(0.9,'#a02cde')
                     ctx.fillStyle = lineaire;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    let skins = ["https://cdn.discordapp.com/attachments/715327691842256906/732956977411522601/1.png", "https://cdn.discordapp.com/attachments/715327691842256906/732963700197031957/Fade.png", "https://cdn.discordapp.com/attachments/715327691842256906/732964114099339414/Siona.png"]
+                    let skins = ["https://media.discordapp.net/attachments/715327691842256906/749281675191779378/groot-rocket.png", "https://media.discordapp.net/attachments/715327691842256906/749282553155813476/ironman.png", "https://media.discordapp.net/attachments/715327691842256906/749285313339457601/punk-storm.png"]
                     let choice = skins[Math.floor(Math.random() * skins.length)];
                     const image = await Canvas.loadImage(choice);
-                    ctx.drawImage(image, 800, -60, 625, 1000)
+                    ctx.drawImage(image, 950, 0, 300, 800)
                     ctx.globalAlpha = 0.8
                     ctx.fillStyle = '#2a8491';
                     ctx.fillRect(660, 210, 600, 410);
