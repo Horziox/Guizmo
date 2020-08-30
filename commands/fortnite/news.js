@@ -17,7 +17,10 @@ module.exports = {
             }
         })
         
-        if(request.data.battleroyalenews.news.motds.length == 0) return message.reply("il n'y a actuellement aucune actualité en jeu")
+        if(request.data.battleroyalenews.news.motds.length == 0) {
+            await message.channel.stopTyping()
+            return message.reply("il n'y a actuellement aucune actualité en jeu")
+        }
 
         generateGifNews(request.data.battleroyalenews).then(async (value) => {
             let embed = new Discord.MessageEmbed()
@@ -27,9 +30,8 @@ module.exports = {
             .setImage('attachment://br-news.gif')
             .setFooter(message.author.username, message.author.displayAvatarURL({dynamic: true}))
             .setTimestamp()
-            await message.channel.send(embed)
+            await message.channel.stopTyping()
+            return await message.channel.send(embed)
         })
-
-        return await message.channel.stopTyping()
     }
 }
