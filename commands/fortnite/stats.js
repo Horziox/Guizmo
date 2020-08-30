@@ -18,16 +18,21 @@ module.exports = {
             method: 'get',
             url: 'https://fortnite-api.com/v1/stats/br/v2?name='+encodeURIComponent(args.join(" "))
         }).then(async function(response) {
+            let text = "Cliquez sur la réaction correspondant aux stats que vous voulez afficher :\n\n<:global:744916178081939477> Toutes les plateformes"
+            if(response.data.data.stats.keyboardMouse !== null) text = text + "\n<:cs:744916159752699904> Clavier/Souris"
+            if(response.data.data.stats.gamepad !== null) text = text + "\n<:manette:744916145034756126> Manette"
+            if(response.data.data.stats.touch !== null) text = text + "\n<:mobile:744916201301606520> Tactile"
             let embed = new Discord.MessageEmbed()
             .setTitle("Selectionnez votre plateforme")
-            .setDescription("<:cs:744916159752699904> Clavier/Souris\n<:manette:744916145034756126> Manette\n<:mobile:744916201301606520> Tactile\n<:global:744916178081939477> Tous")
+            .setDescription(text)
             .setColor("#bf9322")
             .setFooter(`${message.author.username}`, message.author.displayAvatarURL({dynamic: true}))
             .setTimestamp()
             const botmsg = await message.channel.send(embed)
-            await botmsg.react(message.guild.emojis.cache.get("744916159752699904"))
-            await botmsg.react(message.guild.emojis.cache.get("744916145034756126"))
-            await botmsg.react(message.guild.emojis.cache.get("744916201301606520"))
+
+            if(response.data.data.stats.keyboardMouse !== null) await botmsg.react(message.guild.emojis.cache.get("744916159752699904"))
+            if(response.data.data.stats.gamepad !== null) await botmsg.react(message.guild.emojis.cache.get("744916145034756126"))
+            if(response.data.data.stats.touch !== null) await botmsg.react(message.guild.emojis.cache.get("744916201301606520"))
             await botmsg.react(message.guild.emojis.cache.get("744916178081939477"))
 
             const filter = (user) => user.id = message.author.id
@@ -115,10 +120,6 @@ module.exports = {
 
                     ctx.font = '30px Burbank Big Cd Bk'
                     ctx.fillStyle = '#ffffff'
-
-                    ctx.fillText("Victoires\n\n\n\nParties\n\n\n\nPasse de Combat", 690, 300)
-                    ctx.fillText("Kills\n\n\n\nK/D", 890, 300)
-                    ctx.fillText("Taux Victoires\n\n\n\nTemps de Jeu", 1070, 300)
                 
                     let lineaire2 = ctx.createLinearGradient(600, 500, 640, 1080);
                     lineaire2.addColorStop(0.2,'#d481f0')
@@ -135,45 +136,88 @@ module.exports = {
 
                     let stats = data.stats[plat]
 
-                    ctx.fillText(`${stats.overall.wins}\n\n${stats.overall.matches}`, 690, 350, 175)
-                    ctx.fillText(`${stats.overall.kills}\n\n${stats.overall.kd.toFixed(2)}`, 890, 350, 175)
-                    ctx.fillText(`${stats.overall.winRate.toFixed(2)}%\n\n${(stats.overall.minutesPlayed/60).toFixed(0)}h${(stats.overall.minutesPlayed%60).toFixed(0)}min`, 1070, 350, 175)
+                    ctx.fillStyle = '#ffffff'
 
+                    //OVERALL
+                    if(stats.overall !== null) {
+                        ctx.font = '30px Burbank Big Cd Bk'
+                        ctx.fillText("Victoires\n\n\n\nParties\n\n\n\nPasse de Combat", 690, 300)
+                        ctx.fillText("Kills\n\n\n\nK/D", 890, 300)
+                        ctx.fillText("Taux Victoires\n\n\n\nTemps de Jeu", 1070, 300)
+    
+                        ctx.font = '60px Burbank Big Cd Bk'
+                        ctx.fillText(`${stats.overall.wins}\n\n${stats.overall.matches}`, 690, 350, 175)
+                        ctx.fillText(`${stats.overall.kills}\n\n${stats.overall.kd.toFixed(2)}`, 890, 350, 175)
+                        ctx.fillText(`${stats.overall.winRate.toFixed(2)}%\n\n${(stats.overall.minutesPlayed/60).toFixed(0)}h${(stats.overall.minutesPlayed%60).toFixed(0)}min`, 1070, 350, 175) 
+                    } else {
+                        ctx.font = '40px Burbank Big Cd Bk'
+                        ctx.fillText("Aucunes statistiques n'as été trouvées", 680, 400)
+                    }
 
-                    ctx.font = '25px Burbank Big Cd Bk'
-                    ctx.fillText("Victoires\n\n\n\nParties", 80, 170)
-                    ctx.fillText("Kills\n\n\n\nK/D", 270, 170)
-                    ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 170)
+                    //SOLO
+                    if(stats.solo !== null) {
+                        ctx.font = '25px Burbank Big Cd Bk'
+                        ctx.fillText("Victoires\n\n\n\nParties", 80, 170)
+                        ctx.fillText("Kills\n\n\n\nK/D", 270, 170)
+                        ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 170)
 
-                    ctx.fillText("Victoires\n\n\n\nParties", 80, 440)
-                    ctx.fillText("Kills\n\n\n\nK/D", 270, 440)
-                    ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 440)
+                        ctx.font = '50px Burbank Big Cd Bk'
+                        ctx.fillText(`${stats.solo.wins}\n\n${stats.solo.matches}`, 80, 220, 175)
+                        ctx.fillText(`${stats.solo.kills}\n\n${stats.solo.kd.toFixed(2)}`, 270, 220, 175)
+                        ctx.fillText(`${stats.solo.winRate.toFixed(2)}%\n\n${stats.solo.killsPerMatch.toFixed(2)}`, 440, 220, 175) 
+                    } else {
+                        ctx.font = '40px Burbank Big Cd Bk'
+                        ctx.fillText("Aucunes statistiques n'as été trouvées", 50, 250)
+                    }
 
-                    ctx.fillText("Victoires\n\n\n\nParties", 80, 710)
-                    ctx.fillText("Kills\n\n\n\nK/D", 270, 710)
-                    ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 710)
+                    //DUO
+                    if(stats.duo !== null) {
+                        ctx.font = '25px Burbank Big Cd Bk'
+                        ctx.fillText("Victoires\n\n\n\nParties", 80, 440)
+                        ctx.fillText("Kills\n\n\n\nK/D", 270, 440)
+                        ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 440)
 
-                    ctx.fillText("Victoires\n\n\n\nParties", 690, 710)
-                    ctx.fillText("Kills\n\n\n\nK/D", 890, 710)
-                    ctx.fillText("Taux Victoires\n\n\n\nK/M", 1080, 710)
+                        ctx.font = '50px Burbank Big Cd Bk'
+                        ctx.fillText(`${stats.duo.wins}\n\n${stats.duo.matches}`, 80, 490, 175)
+                        ctx.fillText(`${stats.duo.kills}\n\n${stats.duo.kd.toFixed(2)}`, 270, 490, 175)
+                        ctx.fillText(`${stats.duo.winRate.toFixed(2)}%\n\n${stats.duo.killsPerMatch.toFixed(2)}`, 440, 490, 175)
+                    } else {
+                        ctx.font = '40px Burbank Big Cd Bk'
+                        ctx.fillText("Aucunes statistiques n'as été trouvées", 50, 510)
+                    }
 
-                    ctx.font = '50px Burbank Big Cd Bk'
+                    //SQUAD
+                    if(stats.squad !== null) {
+                        ctx.font = '25px Burbank Big Cd Bk'
+                        ctx.fillText("Victoires\n\n\n\nParties", 80, 710)
+                        ctx.fillText("Kills\n\n\n\nK/D", 270, 710)
+                        ctx.fillText("Taux Victoires\n\n\n\nK/M", 440, 710)
+    
+                        ctx.font = '50px Burbank Big Cd Bk'
+                        ctx.fillText(`${stats.squad.wins}\n\n${stats.squad.matches}`, 80, 760, 175)
+                        ctx.fillText(`${stats.squad.kills}\n\n${stats.squad.kd.toFixed(2)}`, 270, 760, 175)
+                        ctx.fillText(`${stats.squad.winRate.toFixed(2)}%\n\n${stats.squad.killsPerMatch.toFixed(2)}`, 440, 760, 175)
+                    } else {
+                        ctx.font = '40px Burbank Big Cd Bk'
+                        ctx.fillText("Aucunes statistiques n'as été trouvées", 50, 790)
+                    }
+                    
 
-                    ctx.fillText(`${stats.solo.wins}\n\n${stats.solo.matches}`, 80, 220, 175)
-                    ctx.fillText(`${stats.solo.kills}\n\n${stats.solo.kd.toFixed(2)}`, 270, 220, 175)
-                    ctx.fillText(`${stats.solo.winRate.toFixed(2)}%\n\n${stats.solo.killsPerMatch.toFixed(2)}`, 440, 220, 175)
+                    //LTM
+                    if(stats.ltm !== null) {
+                        ctx.font = '25px Burbank Big Cd Bk'
+                        ctx.fillText("Victoires\n\n\n\nParties", 690, 710)
+                        ctx.fillText("Kills\n\n\n\nK/D", 890, 710)
+                        ctx.fillText("Taux Victoires\n\n\n\nK/M", 1080, 710)
 
-                    ctx.fillText(`${stats.duo.wins}\n\n${stats.duo.matches}`, 80, 490, 175)
-                    ctx.fillText(`${stats.duo.kills}\n\n${stats.duo.kd.toFixed(2)}`, 270, 490, 175)
-                    ctx.fillText(`${stats.duo.winRate.toFixed(2)}%\n\n${stats.duo.killsPerMatch.toFixed(2)}`, 440, 490, 175)
-
-                    ctx.fillText(`${stats.squad.wins}\n\n${stats.squad.matches}`, 80, 760, 175)
-                    ctx.fillText(`${stats.squad.kills}\n\n${stats.squad.kd.toFixed(2)}`, 270, 760, 175)
-                    ctx.fillText(`${stats.squad.winRate.toFixed(2)}%\n\n${stats.squad.killsPerMatch.toFixed(2)}`, 440, 760, 175)
-
-                    ctx.fillText(`${stats.ltm.wins}\n\n${stats.ltm.matches}`, 710, 760, 175)
-                    ctx.fillText(`${stats.ltm.kills}\n\n${stats.ltm.kd.toFixed(2)}`, 890, 760, 175)
-                    ctx.fillText(`${stats.ltm.winRate.toFixed(2)}%\n\n${stats.ltm.killsPerMatch.toFixed(2)}`, 1080, 760, 175)
+                        ctx.font = '50px Burbank Big Cd Bk'
+                        ctx.fillText(`${stats.ltm.wins}\n\n${stats.ltm.matches}`, 710, 760, 175)
+                        ctx.fillText(`${stats.ltm.kills}\n\n${stats.ltm.kd.toFixed(2)}`, 890, 760, 175)
+                        ctx.fillText(`${stats.ltm.winRate.toFixed(2)}%\n\n${stats.ltm.killsPerMatch.toFixed(2)}`, 1080, 760, 175)
+                    } else {
+                        ctx.font = '40px Burbank Big Cd Bk'
+                        ctx.fillText("Aucunes statistiques n'as été trouvées", 680, 790)
+                    }
 
                     const img = new Discord.MessageAttachment(canvas.toBuffer(), 'stats.png')
                     endEmbed.setTitle(`Statistiques de ${data.account.name} sur ${emoji[collected.array()[0].emoji.id].name}`)
