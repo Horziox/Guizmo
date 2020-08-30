@@ -27,8 +27,9 @@ module.exports = {
             .setImage('attachment://br-news.gif')
             .setFooter(message.author.username, message.author.displayAvatarURL({dynamic: true}))
             .setTimestamp()
-            await message.channel.stopTyping()
-            return await message.channel.send(embed)
+            await message.channel.send(embed)
         })
+
+        return await message.channel.stopTyping()
     }
 }
