@@ -5,8 +5,6 @@ const bot = new Discord.Client();
 
 require("dotenv").config()
 
-const data = require('./functions/dataFortnite.js');
-
 bot.commands = new Discord.Collection();
 
 // Enregistrement des évènements
