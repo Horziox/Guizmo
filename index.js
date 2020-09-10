@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const utils = require("./utils.js");
-const schedule = require('node-schedule');
 const bot = new Discord.Client();
 
 require("dotenv").config()
@@ -54,12 +53,3 @@ setInterval(function() {
 	let status = game[Math.floor(Math.random() * game.length)];
 	bot.user.setActivity(status , {type : "PLAYING"});
 }, 5000)
-
-schedule.scheduleJob('*/10 * * * * *', async function(){
-    await data.reloadData(bot)
-});
-
-
-schedule.scheduleJob('1 0 0 * * *', async function(){
-    await data.reloadShop(bot)
-});
