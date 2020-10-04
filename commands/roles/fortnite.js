@@ -10,10 +10,10 @@ module.exports = {
         let role = bot.guilds.cache.get("551394507007197194").roles.cache.get(id)
         if(!info) {
             user.roles.add(role.id)
-            message.reply(`a rejoint le groupe **${role.name}**.`)
+            message.reply(`est monté(e) dans le Battle Bus !!!`)
         } else {
             user.roles.remove(role.id)
-            message.reply(`a quitté le groupe **${role.name}**.`)
+            message.reply(`a sauté(e) du Battle Bus...`)
         }
     }
 }
