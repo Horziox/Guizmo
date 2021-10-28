@@ -36,8 +36,8 @@ require("dotenv").config();
     await client.login(process.env.discordToken);
 })()
 
-/*setInterval(function() {
+setInterval(function() {
 	let game = [ "TE surveiller ;)", "Fortnite", "Apex Legends", "s'admirer", "rigoler à mes blagues", "point faible ? Trop fort !", "Rocket League", ]
 	let status = game[Math.floor(Math.random() * game.length)];
-	bot.user.setActivity(status , { type: "PLAYING" });
-}, 5000)*/
+	client.user.setActivity(status , { type: "PLAYING" });
+}, 5000)
