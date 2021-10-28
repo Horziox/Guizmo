@@ -30,8 +30,6 @@ module.exports = {
         const guild = client.guilds.cache.get('551394507007197194');
         const member = await guild.members.cache.get(interaction.user.id).fetch();
 
-        console.log(interaction.values)
-
         let result = "";
 
         for(const id of ids) {
