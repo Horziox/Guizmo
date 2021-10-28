@@ -7,7 +7,6 @@ Yon can find all release and patch notes [here](https://github.com/Horziox/Guizm
 ## Table of Contents
 - [Installation](#installation)
 - [Commands](#commands)
-- [Features](#features)
 - [License](#license)
 
 ## Installation
@@ -44,27 +43,9 @@ node index.js
 
 
 ## Commands
-### Roles
-- **!apex**
-- **!fortnite**
-- **!minecraft** 
-### Fortnite
-- **!news** *Generate a GIF who indicate the Fortnite Battle Royale news in game*
-- **!stats** *Generate an image with Fortnite stats of the player*
-### Admin
-- **!eval** *Eval command*
 ### General
-- **!help** *Display the bot commands*
-- **!info** *Give the server, bot or users discord informations*
-- **!pfc** *Play Rock Paper Cissor with Guizmo*
-- **!ping**
-
-
-## Features
-
-- Fortnite Shop image
-- Apex Legends commands
-- Moderation commands
+- **info** *Give the server, bot or users discord informations*
+- **ping**
 
 And more !
 
