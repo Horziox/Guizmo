@@ -52,4 +52,4 @@ And more !
 ## License
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 ©
+- Copyright 2021 ©
