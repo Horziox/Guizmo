@@ -4,7 +4,7 @@ const Command = require("../class/Command");
 
 module.exports = new Command({
     name: "role",
-    execute(client, interaction) {
+    async execute(client, interaction) {
         const guild = client.guilds.cache.get('551394507007197194');
         const member = await guild.members.cache.get(interaction.user.id).fetch();
 

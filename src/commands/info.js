@@ -4,7 +4,7 @@ const Command = require("../class/Command");
 
 module.exports = new Command({
     name: "info",
-    execute(client, interaction) {
+    async execute(client, interaction) {
         const embed = new Discord.MessageEmbed()
         .setColor("#bf9322")
         .setTimestamp()
