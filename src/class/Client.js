@@ -3,6 +3,8 @@ const chalk = require('chalk');
 const fs = require('fs');
 const { join } = require('path');
 
+const Command = require('./Command');
+
 class Client extends Discord.Client {
     /**
      * DiscordJS Client Options
@@ -10,18 +12,21 @@ class Client extends Discord.Client {
      */
     constructor(options) {
         super(options);
-        this.commands = new Discord.Collection()
+        this.commands = new Discord.Collection();
     }
 
     /**
      * Register client Commands folder
      * @param {string} dir 
      */
-    async registerCommands(dir) {
+    async registerSlashCommands(dir) {
         fs.readdir(join(dir), async (err, files) => {
             for(const file of files) {
                 if(file.endsWith(".js")) {
                     try {
+                        /**
+                         * @type {Command}
+                         */
                         const command = require(join(dir, file));;
                         if(this.commands.has(command.name))
                             console.log(chalk.yellow('WARN') + ` ${command.name} already exist!`)
@@ -35,7 +40,7 @@ class Client extends Discord.Client {
                     }
                 } 
                 else 
-                    await this.registerCommands(join(dir, file));
+                    await this.registerSlashCommands(join(dir, file));
             }
         });
     };

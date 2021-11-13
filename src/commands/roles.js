@@ -1,13 +1,10 @@
 const Discord = require("discord.js");
-const Client = require("../class/Client");
 
-module.exports = {
+const Command = require("../class/Command");
+
+module.exports = new Command({
     name: "role",
-    /**
-     * @param {Client} client
-     * @param {Discord.CommandInteraction} interaction 
-     */
-    async execute(client, interaction) {
+    execute(client, interaction) {
         const guild = client.guilds.cache.get('551394507007197194');
         const member = await guild.members.cache.get(interaction.user.id).fetch();
 
@@ -28,11 +25,11 @@ module.exports = {
             .addComponents(
                 new Discord.MessageSelectMenu()
                     .setCustomId("select_roles")
-                    .setPlaceholder("Gérez vos rôles ici !")
+                    .setPlaceholder("Sélectionnez vos rôles")
                     .setMinValues(0)
                     .setMaxValues(ids.length)
                     .addOptions(roles)
             )
         return interaction.reply({ content: "Sélectionnez/déselectionnez vos rôles !", components: [ row ], ephemeral: true });
     }
-}
+});

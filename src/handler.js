@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const Client = require('./class/Client');
-const roles = require('./commands/roles');
 
 module.exports = {
 
@@ -35,9 +34,6 @@ module.exports = {
         for(const id of ids) {
             const role = guild.roles.cache.get(id);
 
-            //role que je veux garder
-
-
             if(interaction.values.includes(id)) {
                 if(!member.roles.cache.has(id)) {
                     await member.roles.add(id)
@@ -52,7 +48,6 @@ module.exports = {
             }
         }
 
-        await interaction.reply({ content: result, ephemeral: true });
-        return
+        return interaction.reply({ content: result, ephemeral: true });
     }
 }

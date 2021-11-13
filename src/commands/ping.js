@@ -1,13 +1,8 @@
-const Discord = require("discord.js");
-const Client = require("../class/Client");
+const Command = require("../class/Command");
 
-module.exports = {
+module.exports = new Command({
     name: "ping",
-    /**
-     * @param {Client} client
-     * @param {Discord.CommandInteraction} interaction 
-     */
     execute(client, interaction) {
-        return interaction.reply(`:ping_pong: ${Date.now() - interaction.createdTimestamp}ms.`);
+        return interaction.reply(`:ping_pong: ${client.ws.ping}ms.`);
     }
-}
+});

@@ -1,14 +1,10 @@
 const Discord = require("discord.js");
-const Client = require("../class/Client");
 
-module.exports = {
+const Command = require("../class/Command");
+
+module.exports = new Command({
     name: "info",
-    /**
-     * @param {Client} client
-     * @param {Discord.CommandInteraction} interaction 
-     */
-    async execute(client, interaction) {
-
+    execute(client, interaction) {
         const embed = new Discord.MessageEmbed()
         .setColor("#bf9322")
         .setTimestamp()
@@ -50,7 +46,7 @@ module.exports = {
             .setDescription(`Salut !\nJe suis ${client.user.username}, un bot multi-fonctions développé pour vous rendre service !\n[Code source](https://github.com/Horziox/Guizmo) !`)
             .addField("Versions Logiciel/Librairies", `NodeJS : \`\`${process.version}\`\`\nDiscord.js : \`\`${Discord.version}\`\``, true)
             .addField("Utilisation Ressources", "OS : "+process.platform+"\nRAM : ``"+`${(process.memoryUsage().heapUsed/1000000).toFixed(2)}`+" Mo``", true)
-            .addField("Ping", `Bot : ${Date.now() - interaction.createdTimestamp}`+"ms", true)
+            .addField("Ping", `Bot : ${client.ws.ping}ms`, true)
         }
         else {
             const guild = await interaction.guild.fetch();
@@ -70,4 +66,4 @@ module.exports = {
 
         return interaction.reply({ embeds: [ embed ] });
     }
-}
+});
