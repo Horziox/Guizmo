@@ -11,9 +11,8 @@ module.exports = new Command({
         .setFooter(interaction.user.username, interaction.user.avatarURL({ dynamic: true }))
 
         if(interaction.options.getSubcommand() === 'membre') {
-            const user = interaction.options.getUser('cible') || interaction.user;
-            await user.fetch();
-            const member = client.guilds.cache.get(interaction.guild.id).members.cache.get(user.id);
+            const user = await interaction.options.getUser('cible').fetch() || await interaction.user.fetch();
+            const member = await client.guilds.cache.get(interaction.guild.id).members.fetch(user.id);
 
             embed.setTitle("Informations membre")
             if(member.nickname != null) embed.addField("Surnom", member.nickname, true)
