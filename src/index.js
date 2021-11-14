@@ -1,8 +1,9 @@
+const { Intents } = require('discord.js');
 const { join } = require('path');
 
 const Client = require('./class/Client');
 const client = new Client({
-    intents: [ 'GUILDS', 'GUILD_MEMBERS', 'GUILD_PRESENCES', 'GUILD_INTEGRATIONS', ]
+    intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_INTEGRATIONS ]
 })
 
 const handler = require('./handler');
