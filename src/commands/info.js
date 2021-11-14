@@ -12,7 +12,7 @@ module.exports = new Command({
 
         if(interaction.options.getSubcommand() === 'membre') {
             const user = await interaction.options.getUser('cible').fetch() || await interaction.user.fetch();
-            const member = await client.guilds.cache.get(interaction.guild.id).members.fetch(user.id);
+            const member = await client.guilds.cache.get(interaction.guild.id).members.fetch({ force: true, user: user });
 
             embed.setTitle("Informations membre")
             if(member.nickname != null) embed.addField("Surnom", member.nickname, true)
