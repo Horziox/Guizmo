@@ -23,7 +23,7 @@ module.exports = new Command({
 
             for(const activity of member.presence.activities) {
                 if(activity.type == "CUSTOM") {
-                    embed.addField("Statut personnalisé", `${activity.emoji.id === undefined ? activity.emoji.name : "" } ${activity.state}`)
+                    embed.addField("Statut personnalisé", `${activity?.emoji?.id === undefined ? activity?.emoji?.name : "" } ${activity?.state}`)
                 }
                 else if(activity.type === "LISTENING") {
                     if(activity.name === "Spotify") {
